@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+<<<<<<< HEAD
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -30,10 +31,14 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+=======
+class HomePage extends StatelessWidget {
+>>>>>>> Israel/master
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         title: Text('Nome do App'),
         backgroundColor: Colors.green, // Cor de fundo da AppBar
         iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones da AppBar
@@ -65,10 +70,22 @@ class _HomePageState extends State<HomePage> {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.white, // Cor do item selecionado (ícone)
           onTap: _onItemTapped, // Callback quando um item é pressionado
+=======
+        title: Text('Minha App Flutter'), // Título da barra de aplicativos
+      ),
+      body: const Center(
+        child: Text(
+          'Bem-vindo à minha página inicial!', // Conteúdo da página inicial
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+>>>>>>> Israel/master
         ),
       ),
     );
   }
+<<<<<<< HEAD
 
   // Função para atualizar a página quando um item da BottomNavigationBar é pressionado
   void _onItemTapped(int index) {
@@ -82,4 +99,6 @@ void main() {
   runApp(MaterialApp(
     home: HomePage(),
   ));
+=======
+>>>>>>> Israel/master
 }
