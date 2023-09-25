@@ -60,6 +60,8 @@ flutter:
   assets:
     - assets/background.png
     - assets/logo.png
+    - assets/Cards/mandioca.png
+    - assets/Cards/algodao.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

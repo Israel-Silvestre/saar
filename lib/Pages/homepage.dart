@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saar/Pages/Fragments/custom_card_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,19 +12,17 @@ class _HomePageState extends State<HomePage> {
   // Páginas associadas às opções da BottomNavigationBar
   final List<Widget> _pages = [
     // Página inicial (home)
-    Placeholder(
-      color: Colors.green,
-    ),
+    HomeFragment(), // Adicione o fragmento HomeFragment aqui
     // Página do calendário
-    Placeholder(
+    const Placeholder(
       color: Colors.green,
     ),
     // Página da fruta
-    Placeholder(
+    const Placeholder(
       color: Colors.green,
     ),
     // Página de configurações
-    Placeholder(
+    const Placeholder(
       color: Colors.green,
     ),
   ];
@@ -32,9 +31,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nome do App'),
+        title: const Text('Nome do App'),
         backgroundColor: Colors.green, // Cor de fundo da AppBar
-        iconTheme: IconThemeData(color: Colors.white), // Cor dos ícones da AppBar
+        iconTheme: const IconThemeData(color: Colors.white), // Cor dos ícones da AppBar
       ),
       body: _pages[_selectedIndex], // Mostra a página correspondente à opção selecionada
       bottomNavigationBar: Theme(
@@ -42,7 +41,7 @@ class _HomePageState extends State<HomePage> {
           canvasColor: Colors.green, // Cor de fundo da BottomNavigationBar
         ),
         child: BottomNavigationBar(
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home, color: Colors.white), // Ícone branco
               label: 'Home',
@@ -73,6 +72,19 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+}
+
+class HomeFragment extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        CustomCardWidget(imagePath: 'assets/Cards/mandioca.png'), // Adicione o widget personalizado aqui
+        CustomCardWidget(imagePath: 'assets/Cards/algodao.png'),
+        // Adicione mais instâncias do widget personalizado, se necessário
+      ],
+    );
   }
 }
 
