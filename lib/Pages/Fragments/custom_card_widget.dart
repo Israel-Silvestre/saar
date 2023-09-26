@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomCardWidget extends StatelessWidget {
   final String imagePath; // Parâmetro para o caminho da imagem
+  final String Title;
+  final String Description;
 
-  CustomCardWidget({required this.imagePath});
+  CustomCardWidget({required this.imagePath, required this.Title, required this.Description});
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +33,22 @@ class CustomCardWidget extends StatelessWidget {
             ),
           ),
           // Espaço para o título
-          const Padding(
+           Padding(
             padding: EdgeInsets.all(10),
             child: Text(
-              'Título do Card',
-              style: TextStyle(
+              '$Title',
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           // Espaço para o texto
-          const Padding(
+           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-                  'Fusce tempor neque eu justo aliquam, eget vehicula metus semper. '
-                  'Aenean tincidunt, mauris sit amet porttitor.',
-              style: TextStyle(
+              '$Description',
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
@@ -63,9 +63,9 @@ class CustomCardWidget extends StatelessWidget {
                   // Lógica para o botão "Ver mais" aqui
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
+                  backgroundColor: Colors.purple,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: const Text('Ver mais', style: TextStyle(color: Colors.white)),

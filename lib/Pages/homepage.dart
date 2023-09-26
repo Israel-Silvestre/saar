@@ -31,14 +31,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nome do App'),
-        backgroundColor: Colors.green, // Cor de fundo da AppBar
+        title: Text(
+          'Amigo Agricultor',
+          style: TextStyle(
+            fontFamily: 'Roboto', // Defina a fonte Roboto
+            color: Colors.white, // Cor do texto como branco
+          ),
+        ),
+        backgroundColor: const Color(0xFF00921D), // Cor de fundo da AppBar (hexadecimal)
         iconTheme: const IconThemeData(color: Colors.white), // Cor dos ícones da AppBar
       ),
       body: _pages[_selectedIndex], // Mostra a página correspondente à opção selecionada
       bottomNavigationBar: Theme(
         data: ThemeData(
-          canvasColor: Colors.green, // Cor de fundo da BottomNavigationBar
+          canvasColor: const Color(0xFF00921D), // Cor de fundo da BottomNavigationBar
         ),
         child: BottomNavigationBar(
           items: const [
@@ -52,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.local_florist, color: Colors.white), // Ícone branco
-              label: 'Fruta',
+              label: 'Cultura',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings, color: Colors.white), // Ícone branco
@@ -60,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.green, // Cor do item selecionado (ícone)
+          selectedItemColor: Colors.white, // Cor do item selecionado (ícone)
           onTap: _onItemTapped, // Callback quando um item é pressionado
         ),
       ),
@@ -80,8 +86,18 @@ class HomeFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        CustomCardWidget(imagePath: 'assets/Cards/mandioca.png'), // Adicione o widget personalizado aqui
-        CustomCardWidget(imagePath: 'assets/Cards/algodao.png'),
+        CustomCardWidget(
+          imagePath: 'assets/Cards/mandioca.png',
+          Title: 'Mandioca',
+          Description:
+          'Clima no Rio Grande do Norte tende a favorecer o plantio de mandioca nos meses de janeiro até março',
+        ), // Adicione o widget personalizado aqui
+        CustomCardWidget(
+          imagePath: 'assets/Cards/algodao.png',
+          Title: 'Algodão',
+          Description:
+          'Algodão vem se mostrando muito eficaz quando falamos de colheita em períodos de seca, no Sul do Rio Grande do Norte, veja mais...',
+        ),
         // Adicione mais instâncias do widget personalizado, se necessário
       ],
     );
