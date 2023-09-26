@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:saar/Pages/Fragments/culturas.dart';
 import 'package:saar/Pages/Fragments/custom_card_widget.dart';
-import 'package:saar/Pages/Fragments/settings.dart'; // Importe a classe SettingsFragment
+import 'package:saar/Pages/Fragments/settings.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
       color: Colors.green,
     ),
     // Página da fruta
-    const Placeholder(
-      color: Colors.green,
-    ),
+    CultureWidget(),
     // Página de configurações
     SettingsFragment(), // Adicione a classe SettingsFragment aqui
   ];
