@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saar/Pages/Fragments/custom_card_widget.dart';
+import 'package:saar/Pages/Fragments/settings.dart'; // Importe a classe SettingsFragment
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,9 +23,7 @@ class _HomePageState extends State<HomePage> {
       color: Colors.green,
     ),
     // Página de configurações
-    const Placeholder(
-      color: Colors.green,
-    ),
+    SettingsFragment(), // Adicione a classe SettingsFragment aqui
   ];
 
   @override
@@ -44,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       body: _pages[_selectedIndex], // Mostra a página correspondente à opção selecionada
       bottomNavigationBar: Theme(
         data: ThemeData(
-          canvasColor: const Color(0xFF00921D), // Cor de fundo da BottomNavigationBar
+          canvasColor: const Color(0xFF00921D), // Cor de fundo da BottomNavigationBar (hexadecimal)
         ),
         child: BottomNavigationBar(
           items: const [
