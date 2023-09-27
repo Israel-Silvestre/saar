@@ -46,7 +46,7 @@ class EmbrapAPI {
     return listaDeSolos;
   }
 
-  static Future<List<int>> fetchAnosDisponiveis() async {
+  static Future<List<dynamic>> fetchAnosDisponiveis() async {
     final Response response = await http.get(Uri.parse(anosUri));
 
     if (response.statusCode == HttpStatus.ok) {
