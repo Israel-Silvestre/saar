@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saar/Pages/Fragments/culturas.dart';
 import 'package:saar/Pages/Fragments/custom_card_widget.dart';
+import 'package:saar/Pages/Fragments/months.dart';
 import 'package:saar/Pages/Fragments/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,9 +17,7 @@ class _HomePageState extends State<HomePage> {
     // Página inicial (home)
     HomeFragment(), // Adicione o fragmento HomeFragment aqui
     // Página do calendário
-    const Placeholder(
-      color: Colors.green,
-    ),
+    CarouselsScreen(),
     // Página da fruta
     CultureWidget(),
     // Página de configurações
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today, color: Colors.white), // Ícone branco
-              label: 'Calendário',
+              label: 'Janelas',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.local_florist, color: Colors.white), // Ícone branco

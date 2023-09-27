@@ -16,7 +16,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
   DateTime selectedDate = DateTime.now();
 
   Future<void> _showMonthYearPicker(BuildContext context) async {
-    final pickedDate = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(DateTime.now().year - 1),
@@ -24,17 +24,19 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: Colors.green, // Cor do botão "OK"
-            hintColor: Colors.red, // Cor do botão "Cancelar"
+            primaryColor: Colors.green, // Cor do botão "Confirmar"
+            hintColor: Colors.green, // Cor do botão "Cancel"
+            colorScheme: ColorScheme.light(primary: Colors.green),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );
       },
     );
 
-    if (pickedDate != null) {
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        selectedDate = pickedDate;
+        selectedDate = picked;
         widget.onMonthYearSelected(selectedDate);
       });
     }
