@@ -29,8 +29,15 @@ flutter:
   assets:
     - assets/background.png
     - assets/logo.png
-    - assets/Cards/mandioca.png
-    - assets/Cards/algodao.png
-    - assets/Culturas/banana.png
-    - assets/Culturas/mamao.png
     - assets/Culturas/mandioca.png
+    - assets/Culturas/batataDoce.png
+    - assets/Culturas/sorgo.png
+    - assets/Culturas/feijãoV.png
+    - assets/Culturas/cebola.png
+    - assets/Culturas/cebola.png
+    - assets/Culturas/algodao.png
+    - assets/Culturas/feijaoS.png
+    - assets/Culturas/gergelim.png
+    - assets/Culturas/girassol.png
+    - assets/Culturas/milhoS.png
+    - assets/Culturas/milhoV.png
