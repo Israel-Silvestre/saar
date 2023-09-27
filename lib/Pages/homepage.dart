@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today, color: Colors.white), // Ícone branco
-              label: 'Janelas',
+              label: 'Calendário',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.local_florist, color: Colors.white), // Ícone branco
@@ -85,14 +85,14 @@ class HomeFragment extends StatelessWidget {
       children: [
         CustomCardWidget(
           imagePath: 'assets/Cards/mandioca.png',
-          Title: 'Mandioca',
-          Description:
+          title: 'Mandioca',
+          description:
           'Clima no Rio Grande do Norte tende a favorecer o plantio de mandioca nos meses de janeiro até março',
         ), // Adicione o widget personalizado aqui
         CustomCardWidget(
           imagePath: 'assets/Cards/algodao.png',
-          Title: 'Algodão',
-          Description:
+          title: 'Algodão',
+          description:
           'Algodão vem se mostrando muito eficaz quando falamos de colheita em períodos de seca, no Sul do Rio Grande do Norte, veja mais...',
         ),
         // Adicione mais instâncias do widget personalizado, se necessário

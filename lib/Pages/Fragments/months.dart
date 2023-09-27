@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class CarouselsScreen extends StatefulWidget {
   @override
@@ -7,7 +6,6 @@ class CarouselsScreen extends StatefulWidget {
 }
 
 class _CarouselsScreenState extends State<CarouselsScreen> {
-  int _currentIndex = 0;
   String _selectedMonth = 'Janeiro'; // Mês selecionado inicialmente
 
   final List<String> carouselImages = [
@@ -23,7 +21,7 @@ class _CarouselsScreenState extends State<CarouselsScreen> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8), // Reduzi a altura da barra aqui
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.grey[200], // Cor da barra branca quase cinza
               boxShadow: [
@@ -36,7 +34,7 @@ class _CarouselsScreenState extends State<CarouselsScreen> {
               ],
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Centralizar à direita
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   _selectedMonth,
@@ -60,10 +58,10 @@ class _CarouselsScreenState extends State<CarouselsScreen> {
           Expanded(
             child: ListView(
               children: [
-                _buildCarousel('Frutas', 0),
-                _buildCarousel('Verduras', 1),
-                _buildCarousel('Leguminosas', 2),
-                _buildCarousel('Raízes', 3),
+                _buildCarouselWithTitle('Frutas', 0),
+                _buildCarouselWithTitle('Verduras', 1),
+                _buildCarouselWithTitle('Leguminosas', 2),
+                _buildCarouselWithTitle('Raízes', 3),
               ],
             ),
           ),
@@ -98,73 +96,44 @@ class _CarouselsScreenState extends State<CarouselsScreen> {
     );
   }
 
-  Widget _buildCarousel(String month, int index) {
+  Widget _buildCarouselWithTitle(String title, int index) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // Centralizar à esquerda
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            month,
+            title,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        CarouselSlider.builder(
-          itemCount: carouselImages.length,
-          options: CarouselOptions(
-            height: 200, // Altura do carrossel
-            aspectRatio: 1.0, // Proporção quadrada das imagens
-            autoPlay: true, // Iniciar a reprodução automática
-            enlargeCenterPage: true, // Destacar o slide central
-            enableInfiniteScroll: true, // Ativar rolagem infinita
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentIndex = index;
-              });
+        Container(
+          height: 150.0, // Altura do carrossel
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: carouselImages.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Container(
+                  height: 120.0,
+                  width: 140.0, // Largura de cada item do carrossel
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    image: DecorationImage(
+                      image: AssetImage(carouselImages[index]),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              );
             },
           ),
-          itemBuilder: (context, index, realIndex) {
-            return _buildCarouselCard(
-              imageAsset: carouselImages[index],
-            );
-          },
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: carouselImages.asMap().entries.map((entry) {
-            final int imageIndex = entry.key;
-            return Container(
-              width: 8.0,
-              height: 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentIndex == imageIndex ? Colors.green : Colors.grey,
-              ),
-            );
-          }).toList(),
         ),
       ],
-    );
-  }
-
-  Widget _buildCarouselCard({
-    required String imageAsset,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0), // Borda arredondada
-      ),
-      child: Image.asset(
-        imageAsset,
-        width: double.infinity,
-        height: 200, // Altura da imagem
-        fit: BoxFit.cover,
-      ),
     );
   }
 }

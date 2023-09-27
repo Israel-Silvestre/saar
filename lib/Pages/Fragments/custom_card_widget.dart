@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomCardWidget extends StatelessWidget {
   final String imagePath; // Parâmetro para o caminho da imagem
-  final String Title;
-  final String Description;
+  final String title;
+  final String description;
 
-  CustomCardWidget({required this.imagePath, required this.Title, required this.Description});
+  CustomCardWidget({
+    required this.imagePath,
+    required this.title,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +18,7 @@ class CustomCardWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // Borda arredondada
       ),
+      color: Color(0xFFFFFFFF), // Cor de fundo #CAC4D0
       margin: const EdgeInsets.all(10), // Margem entre os cards
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,10 +38,10 @@ class CustomCardWidget extends StatelessWidget {
             ),
           ),
           // Espaço para o título
-           Padding(
-            padding: EdgeInsets.all(10),
+          Padding(
+            padding: const EdgeInsets.all(10),
             child: Text(
-              '$Title',
+              title,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -44,10 +49,10 @@ class CustomCardWidget extends StatelessWidget {
             ),
           ),
           // Espaço para o texto
-           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              '$Description',
+              description,
               style: const TextStyle(
                 fontSize: 16,
               ),
