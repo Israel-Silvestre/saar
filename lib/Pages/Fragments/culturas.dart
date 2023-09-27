@@ -7,12 +7,12 @@ class CultureWidget extends StatelessWidget {
       body: ListView(
         children: [
           CultureItem(
-            imagePath: 'assets/Culturas/banana.png',
+            imagePath: 'assets/Culturas/batataDoce.png',
             name: 'Banana',
             description: 'Banana é bom demais.',
           ),
           CultureItem(
-            imagePath: 'assets/Culturas/mamao.png', // Substitua pelo caminho da imagem da segunda cultura
+            imagePath: 'assets/Culturas/sorgo.png', // Substitua pelo caminho da imagem da segunda cultura
             name: 'Mamão',
             description: 'Mamão é irado.',
           ),

@@ -84,16 +84,16 @@ class HomeFragment extends StatelessWidget {
     return ListView(
       children: [
         CustomCardWidget(
-          imagePath: 'assets/Cards/mandioca.png',
+          imagePath: 'assets/Culturas/mandioca.png',
           title: 'Mandioca',
           description:
           'Clima no Rio Grande do Norte tende a favorecer o plantio de mandioca nos meses de janeiro até março',
         ), // Adicione o widget personalizado aqui
         CustomCardWidget(
-          imagePath: 'assets/Cards/algodao.png',
-          title: 'Algodão',
+          imagePath: 'assets/Culturas/batataDoce.png',
+          title: 'Batata Doce',
           description:
-          'Algodão vem se mostrando muito eficaz quando falamos de colheita em períodos de seca, no Sul do Rio Grande do Norte, veja mais...',
+          'Batata Doce vem se mostrando muito eficaz quando falamos de colheita em períodos de seca, no Sul do Rio Grande do Norte, veja mais...',
         ),
         // Adicione mais instâncias do widget personalizado, se necessário
       ],

@@ -9,10 +9,10 @@ class _CarouselsScreenState extends State<CarouselsScreen> {
   String _selectedMonth = 'Janeiro'; // Mês selecionado inicialmente
 
   final List<String> carouselImages = [
-    'assets/Cards/mandioca.png', // Substitua pelo caminho da sua imagem
-    'assets/Cards/algodao.png', // Substitua pelo caminho da sua imagem
-    'assets/Cards/mandioca.png', // Substitua pelo caminho da sua imagem
-    'assets/Cards/algodao.png' // Substitua pelo caminho da sua imagem
+    'assets/Culturas/mandioca.png', // Substitua pelo caminho da sua imagem
+    'assets/Culturas/milhoV.png', // Substitua pelo caminho da sua imagem
+    'assets/Culturas/sorgo.png', // Substitua pelo caminho da sua imagem
+    'assets/Culturas/batataDoce.png' // Substitua pelo caminho da sua imagem
   ];
 
   @override
