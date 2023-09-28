@@ -12,11 +12,16 @@ class EmbrapAPI {
   static const String soloUri = "https://meteorologia.emparn.rn.gov.br/api/solo";
   static const String culturasUri = "https://meteorologia.emparn.rn.gov.br/api/culturas";
   static const String anosUri = "https://meteorologia.emparn.rn.gov.br/api/riscos-agricolas/anos-disponiveis";
+  static const Map<String, String> porcentagens = {
+    "60%": "PORCENTAGEM_40",
+    "70%": "PORCENTAGEM_30",
+    "80%": "PORCENTAGEM_20"
+  };
 
   static Future<List<Municipio>> fetchMunicipiosRiscos(int ano, int idCultura, int idSolo, String porcentagem) async {
     final Response response = await http.get(Uri.parse(
       "https://meteorologia.emparn.rn.gov.br/api/riscos-agricolas/exibicao?"
-      "ano=$ano&idCultura=$idCultura&idSolo=$idSolo&porcentagem=$porcentagem"
+      "ano=$ano&idCultura=$idCultura&idSolo=$idSolo&porcentagem=${porcentagens[porcentagem]}"
     ));
     final Map<String, dynamic> responseBody = _processResponse(response);
 
