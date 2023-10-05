@@ -1,10 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:saar/Factories/culturaFactory.dart';
+import 'package:saar/embrapa_api/models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CultureWidget extends StatelessWidget {
+
+  Future _getCulturas() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? culturasSalvas = prefs.getStringList("culturas");
+
+    if(culturasSalvas == null) {
+      return [];
+    } else {
+      return culturasSalvas.map((obj) => Cultura.fromJsonStorage(json.decode(obj))).toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cultureItems = CulturaFactory.getCulturas; // Use o método get para obter a lista de culturas
+    final List<Cultura> cultureItems = _getCulturas() as List<Cultura>;
 
     return Scaffold(
       appBar: AppBar(
@@ -16,8 +31,8 @@ class CultureWidget extends StatelessWidget {
           final culture = cultureItems[index];
           return CultureItemWidget(
             imagePath: culture.imagePath,
-            name: culture.name,
-            description: culture.description,
+            name: culture.nome,
+            description: culture.type,
           );
         },
       ),
