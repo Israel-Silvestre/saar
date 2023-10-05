@@ -24,14 +24,88 @@ class Municipio {
 class Cultura {
   final int id;
   final String nome;
+  final String imagePath;
+  final String type;
+
+  static const Map<int, dynamic> categorias = {
+    2: {
+      "imagePath": "assets/Culturas/girassol.png",
+      "categoria": "Fruta",
+    },
+    3: {
+      "imagePath": "assets/Culturas/algodao.png",
+      "categoria": "Raíz",
+    },
+    4: {
+      "imagePath": "assets/Culturas/milhoS.png",
+      "categoria": "Verdura"
+    },
+    5: {
+      "imagePath":  "assets/Culturas/feijaoV.png",
+      "categoria": "Verdura",
+    },
+    6: {
+      "imagePath": "assets/Culturas/feijaoS.png",
+      "categoria": "Leguminosa",
+    },
+    7: {
+      "imagePath": "assets/Culturas/milhoV.png",
+      "categoria": "Verdura",
+    },
+    8: {
+      "imagePath": "assets/Culturas/sorgo.png",
+      "categoria": "Verdura",
+    },
+    9: {
+      "imagePath": "assets/Culturas/batataDoce.png",
+      "categoria": "Raíz",
+    },
+    10: {
+      "imagePath": "assets/Culturas/mandioca.png",
+      "categoria": "Raíz",
+    },
+    11: {
+      "imagePath": "assets/Culturas/gergelim.png",
+      "categoria": "Leguminosa",
+    },
+    12: {
+      "imagePath": "assets/Culturas/cebola.png",
+      "categoria": "Verdura",
+    },
+  };
 
   const Cultura({
     required this.id,
     required this.nome,
+    required this.imagePath,
+    required this.type,
   });
 
   factory Cultura.fromJson(Map<String, dynamic> culturaData) {
-    return Cultura(id: culturaData["id"], nome: culturaData["nome"]);
+    return Cultura(
+      id: culturaData["id"],
+      nome: culturaData["nome"],
+      imagePath: categorias[culturaData["id"]]["imagePath"],
+      type: categorias[culturaData["id"]]["categoria"]
+    );
+  }
+
+  factory Cultura.fromJsonStorage(Map<String, dynamic> culturaData) {
+    return Cultura(
+      id: culturaData["id"],
+      nome: culturaData["nome"],
+      imagePath: culturaData["imagePath"],
+      type: culturaData["categoria"]
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "nome": nome,
+      "imagePath": imagePath,
+      "type": type,
+    };
   }
 }
 
