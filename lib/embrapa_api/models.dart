@@ -83,19 +83,19 @@ class Cultura {
 
   factory Cultura.fromJson(Map<String, dynamic> culturaData) {
     return Cultura(
-      id: culturaData["id"],
-      nome: culturaData["nome"],
-      imagePath: categorias[culturaData["id"]]["imagePath"],
-      type: categorias[culturaData["id"]]["categoria"]
+        id: culturaData["id"],
+        nome: culturaData["nome"],
+        imagePath: categorias[culturaData["id"]]["imagePath"],
+        type: categorias[culturaData["id"]]["categoria"]
     );
   }
 
   factory Cultura.fromJsonStorage(Map<String, dynamic> culturaData) {
     return Cultura(
-      id: culturaData["id"],
-      nome: culturaData["nome"],
-      imagePath: culturaData["imagePath"],
-      type: culturaData["categoria"]
+        id: culturaData["id"],
+        nome: culturaData["nome"],
+        imagePath: culturaData["imagePath"],
+        type: culturaData["categoria"]
     );
   }
 

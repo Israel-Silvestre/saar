@@ -1,16 +1,26 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:saar/embrapa_api/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CultureWidget extends StatelessWidget {
+class CultureWidget extends StatefulWidget {
+  @override
+  _CultureWidgetState createState() => _CultureWidgetState();
+}
 
-  Future _getCulturas() async {
+class _CultureWidgetState extends State<CultureWidget> {
+  late Future<List<Cultura>> _culturasFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _culturasFuture = _getCulturas();
+  }
+
+  Future<List<Cultura>> _getCulturas() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String>? culturasSalvas = prefs.getStringList("culturas");
-
-    if(culturasSalvas == null) {
+    if (culturasSalvas == null) {
       return [];
     } else {
       return culturasSalvas.map((obj) => Cultura.fromJsonStorage(json.decode(obj))).toList();
@@ -19,21 +29,31 @@ class CultureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Cultura> cultureItems = _getCulturas() as List<Cultura>;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Culturas'),
       ),
-      body: ListView.builder(
-        itemCount: cultureItems.length,
-        itemBuilder: (context, index) {
-          final culture = cultureItems[index];
-          return CultureItemWidget(
-            imagePath: culture.imagePath,
-            name: culture.nome,
-            description: culture.type,
-          );
+      body: FutureBuilder<List<Cultura>>(
+        future: _culturasFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Erro: ${snapshot.error}');
+          } else {
+            final List<Cultura> cultureItems = snapshot.data ?? [];
+            return ListView.builder(
+              itemCount: cultureItems.length,
+              itemBuilder: (context, index) {
+                final culture = cultureItems[index];
+                return CultureItemWidget(
+                  imagePath: culture.imagePath,
+                  name: culture.nome,
+                  description: culture.type,
+                );
+              },
+            );
+          }
         },
       ),
     );
