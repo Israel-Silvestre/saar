@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:saar/Factories/culturaFactory.dart';
 
 class CultureWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cultureItems = CulturaFactory.getCulturas; // Use o método get para obter a lista de culturas
+
     return Scaffold(
-      body: ListView(
-        children: [
-          CultureItem(
-            imagePath: 'assets/Culturas/batataDoce.png',
-            name: 'Banana',
-            description: 'Banana é bom demais.',
-          ),
-          CultureItem(
-            imagePath: 'assets/Culturas/sorgo.png', // Substitua pelo caminho da imagem da segunda cultura
-            name: 'Mamão',
-            description: 'Mamão é irado.',
-          ),
-          // Adicione mais instâncias do CultureItem com diferentes imagens, nomes e descrições, se necessário
-        ],
+      appBar: AppBar(
+        title: Text('Culturas'),
+      ),
+      body: ListView.builder(
+        itemCount: cultureItems.length,
+        itemBuilder: (context, index) {
+          final culture = cultureItems[index];
+          return CultureItemWidget(
+            imagePath: culture.imagePath,
+            name: culture.name,
+            description: culture.description,
+          );
+        },
       ),
     );
   }
 }
 
-class CultureItem extends StatelessWidget {
-  final String imagePath; // Caminho da imagem
-  final String name; // Nome da cultura
-  final String description; // Descrição breve da cultura
+class CultureItemWidget extends StatelessWidget {
+  final String imagePath;
+  final String name;
+  final String description;
 
-  CultureItem({
+  CultureItemWidget({
     required this.imagePath,
     required this.name,
     required this.description,
@@ -37,21 +39,20 @@ class CultureItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4, // Sombra do card
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10), // Borda arredondada
+        borderRadius: BorderRadius.circular(10),
       ),
-      margin: const EdgeInsets.all(4), // Margem entre os cards
+      margin: const EdgeInsets.all(4),
       child: Row(
         children: [
-          // Espaço para a foto de perfil (centralizado à esquerda)
           Container(
-            width: 80, // Largura da imagem
-            height: 80, // Altura da imagem
+            width: 80,
+            height: 80,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(imagePath),
-                fit: BoxFit.cover, // Preenche o espaço com a imagem
+                fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -59,14 +60,12 @@ class CultureItem extends StatelessWidget {
               ),
             ),
           ),
-          // Espaço para o nome e descrição (à direita da imagem)
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Nome da cultura (estilo de título)
                   Text(
                     name,
                     style: TextStyle(
@@ -74,7 +73,6 @@ class CultureItem extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // Descrição breve da cultura
                   Text(
                     description,
                     style: TextStyle(fontSize: 14),

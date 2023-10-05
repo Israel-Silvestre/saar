@@ -18,7 +18,7 @@ class EmbrapAPI {
 
   /// Obtém uma lista de dados de risco de municípios com base nos parâmetros especificados.
   ///
-  /// Esta função faz uma solicitação HTTP GET à API da Embrapa para recuperar dados de risco
+  /// Esta função faz uma solicitação HTTP GET à API da Emparn para recuperar dados de risco
   /// de municípios para um determinado ano, cultura, solo e valor de porcentagem.
   ///
   /// - [ano]: O ano para o qual os dados são solicitados.
