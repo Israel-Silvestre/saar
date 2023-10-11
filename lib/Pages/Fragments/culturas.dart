@@ -1,9 +1,12 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:saar/embrapa_api/models.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:saar/embrapa_api/service.dart';
 
 class CultureWidget extends StatefulWidget {
+  final Future<List<Cultura>> culturasFuture;
+
+  const CultureWidget({super.key, required this.culturasFuture});
+
   @override
   _CultureWidgetState createState() => _CultureWidgetState();
 }
@@ -14,25 +17,12 @@ class _CultureWidgetState extends State<CultureWidget> {
   @override
   void initState() {
     super.initState();
-    _culturasFuture = _getCulturas();
-  }
-
-  Future<List<Cultura>> _getCulturas() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String>? culturasSalvas = prefs.getStringList("culturas");
-    if (culturasSalvas == null) {
-      return [];
-    } else {
-      return culturasSalvas.map((obj) => Cultura.fromJsonStorage(json.decode(obj))).toList();
-    }
+    _culturasFuture = widget.culturasFuture;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Culturas'),
-      ),
       body: FutureBuilder<List<Cultura>>(
         future: _culturasFuture,
         builder: (context, snapshot) {

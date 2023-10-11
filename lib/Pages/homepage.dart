@@ -3,6 +3,8 @@ import 'package:saar/Pages/Fragments/culturas.dart';
 import 'package:saar/Pages/Fragments/custom_card_widget.dart';
 import 'package:saar/Pages/Fragments/months.dart';
 import 'package:saar/Pages/Fragments/settings.dart';
+import 'package:saar/embrapa_api/models.dart';
+import 'package:saar/embrapa_api/service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,24 +13,34 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0; // Índice da opção selecionada na BottomNavigationBar
+  late Future<List<Cultura>> _culturasFuture;
+  late Future<List<dynamic>> _anosDisponiveisFuture;
+  late Future<List<Solo>> _solosFuture;
 
   // Páginas associadas às opções da BottomNavigationBar
-  final List<Widget> _pages = [
-    // Página inicial (home)
-    HomeFragment(), // Adicione o fragmento HomeFragment aqui
-    // Página do calendário
-    CarouselsScreen(),
-    // Página da fruta
-    CultureWidget(),
-    // Página de configurações
-    SettingsFragment(), // Adicione a classe SettingsFragment aqui
-  ];
+  List<Widget> _pages = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    _culturasFuture = EmbrapAPI.fetchCulturas();
+    _anosDisponiveisFuture = EmbrapAPI.fetchAnosDisponiveis();
+    _solosFuture = EmbrapAPI.fetchSolos();
+
+    _pages = [
+      HomeFragment(),
+      CarouselsScreen(),
+      CultureWidget(culturasFuture: _culturasFuture),
+      SettingsFragment(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Amigo Agricultor',
           style: TextStyle(
             fontFamily: 'Roboto', // Defina a fonte Roboto
