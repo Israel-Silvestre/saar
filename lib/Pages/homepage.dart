@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saar/Pages/Fragments/culturas.dart';
-import 'package:saar/Pages/Fragments/custom_card_widget.dart';
+import 'package:saar/Pages/Fragments/feed.dart';
 import 'package:saar/Pages/Fragments/months.dart';
 import 'package:saar/Pages/Fragments/settings.dart';
 import 'package:saar/embrapa_api/models.dart';
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
     _pages = [
       HomeFragment(),
-      CarouselsScreen(),
+      MonthsList(culturasFuture: _culturasFuture),
       CultureWidget(culturasFuture: _culturasFuture),
       SettingsFragment(),
     ];
