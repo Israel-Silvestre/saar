@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       HomeFragment(),
       MonthsList(culturasFuture: _culturasFuture),
-      CultureWidget(culturasFuture: _culturasFuture),
+      CultureWidget(culturasFuture: _culturasFuture, solosFuture: _solosFuture),
       SettingsFragment(),
     ];
   }

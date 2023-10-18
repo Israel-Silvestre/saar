@@ -4,8 +4,9 @@ import 'package:saar/Pages/risco.dart';
 
 class CultureWidget extends StatefulWidget {
   final Future<List<Cultura>> culturasFuture;
+  final Future<List<Solo>> solosFuture;
 
-  const CultureWidget({super.key, required this.culturasFuture});
+  const CultureWidget({super.key, required this.culturasFuture, required this.solosFuture});
 
   @override
   _CultureWidgetState createState() => _CultureWidgetState();
@@ -13,11 +14,14 @@ class CultureWidget extends StatefulWidget {
 
 class _CultureWidgetState extends State<CultureWidget> {
   late Future<List<Cultura>> _culturasFuture;
+  late Future<List<Solo>> _solosFuture;
 
   @override
   void initState() {
     super.initState();
     _culturasFuture = widget.culturasFuture;
+    _solosFuture = widget.solosFuture;
+
   }
 
   @override
@@ -41,7 +45,7 @@ class _CultureWidgetState extends State<CultureWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Risco(cultura: culture),
+                        builder: (context) => Risco(cultura: culture, solosFuture: _solosFuture),
                       ),
                     );
                   },
