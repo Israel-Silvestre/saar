@@ -112,13 +112,33 @@ class Cultura {
 class Solo {
   final int id;
   final String nome;
+  final String title;
+  final String subtitle;
+  final String imagePath;
+
+  static const Map<int, dynamic> soloInfo = {
+    1: {"title": "Solo Tipo 1", "subtitle": "Arenoso", "imagePath": "assets/Solos/SoloTipo1.png"},
+    2: {"title": "Solo Tipo 2", "subtitle": "Arenoargiloso", "imagePath": "assets/Solos/SoloTipo2.png"},
+    3: {"title": "Solo Tipo 3", "subtitle": "Argiloso", "imagePath": "assets/Solos/SoloTipo3.png"},
+  };
 
   const Solo({
     required this.id,
     required this.nome,
+    required this.title,
+    required this.subtitle,
+    required this.imagePath,
   });
 
   factory Solo.fromJson(Map<String, dynamic> soloData) {
-    return Solo(id: soloData["id"], nome: soloData["nome"]);
+    final int id = soloData["id"];
+
+    return Solo(
+      id: id,
+      nome: soloData["nome"],
+      title: soloInfo[id]["title"],
+      subtitle: soloInfo[id]["subtitle"],
+      imagePath: soloInfo[id]["imagePath"],
+    );
   }
 }
