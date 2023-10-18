@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saar/embrapa_api/models.dart';
-import 'package:saar/embrapa_api/service.dart';
+import 'package:saar/Pages/risco.dart';
 
 class CultureWidget extends StatefulWidget {
   final Future<List<Cultura>> culturasFuture;
@@ -36,10 +36,20 @@ class _CultureWidgetState extends State<CultureWidget> {
               itemCount: cultureItems.length,
               itemBuilder: (context, index) {
                 final culture = cultureItems[index];
-                return CultureItemWidget(
-                  imagePath: culture.imagePath,
-                  name: culture.nome,
-                  description: culture.type,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Risco(cultura: culture),
+                      ),
+                    );
+                  },
+                  child: CultureItemWidget(
+                    imagePath: culture.imagePath,
+                    name: culture.nome,
+                    description: culture.type,
+                  ),
                 );
               },
             );
