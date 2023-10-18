@@ -4,7 +4,7 @@ import 'package:saar/embrapa_api/models.dart';
 class Risco extends StatefulWidget {
   final Cultura cultura;
 
-  Risco({required this.cultura});
+  const Risco({super.key, required this.cultura});
 
   @override
   _RiscoState createState() => _RiscoState();
@@ -13,6 +13,9 @@ class Risco extends StatefulWidget {
 class _RiscoState extends State<Risco> {
   late Cultura _cultura;
   late List<Map<String, String>> _cardAttributes;
+  late int _selectedCardIndex; // Índice do card selecionado
+  late ScrollController _horizontalScrollController;
+  late ScrollController _verticalScrollController;
 
   @override
   void initState() {
@@ -23,6 +26,31 @@ class _RiscoState extends State<Risco> {
       {"title": "Solo Tipo 2", "subtitle": "Arenoargiloso", "imagePath": "assets/Solos/SoloTipo2.png"},
       {"title": "Solo Tipo 3", "subtitle": "Argiloso", "imagePath": "assets/Solos/SoloTipo3.png"},
     ];
+    _selectedCardIndex = -1; // Nenhum card selecionado inicialmente
+    _horizontalScrollController = ScrollController();
+    _verticalScrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _horizontalScrollController.dispose();
+    _verticalScrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToSelectedCard(int index) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    const cardWidth = 160; // Largura do card
+    final offset = index * cardWidth - (screenWidth / 2 - cardWidth / 2);
+    _horizontalScrollController.animateTo(offset, duration: const Duration(seconds: 1), curve: Curves.ease);
+  }
+
+  void _scrollVertically() {
+    _verticalScrollController.animateTo(
+      _verticalScrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.ease,
+    );
   }
 
   @override
@@ -30,85 +58,116 @@ class _RiscoState extends State<Risco> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Risco Climático'),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text('Risco Climático', style: TextStyle(color: Colors.white),),
       ),
       body: SingleChildScrollView(
+        controller: _verticalScrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.width * 0.75,
-              color: Colors.grey[200],
-              child: Image.asset(
-                _cultura.imagePath,
-                fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
               ),
+              child: Image.asset(
+                  _cultura.imagePath,
+                  fit: BoxFit.cover,
+                ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 _cultura.nome,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               height: 200,
               child: ListView.builder(
+                controller: _horizontalScrollController,
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 160,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              _cardAttributes[index]["title"]!,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (_selectedCardIndex == index) {
+                            _scrollVertically(); // Scroll vertical ao desselecionar
+                          } else {
+                            _selectedCardIndex = index;
+                            _scrollToSelectedCard(index);
+                            _scrollVertically(); // Scroll vertical ao selecionar
+                          }
+                        });
+                      },
+                      child: Container(
+                        width: 160,
+                        decoration: BoxDecoration(
+                          color: _selectedCardIndex == index ? Colors.green : Colors.grey[200],
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              _cardAttributes[index]["subtitle"]!,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(_cardAttributes[index]["imagePath"]!),
-                                  fit: BoxFit.cover,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                _cardAttributes[index]["title"]!,
+                                style: TextStyle(
+                                  color: _selectedCardIndex == index ? Colors.white : Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                _cardAttributes[index]["subtitle"]!,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(_cardAttributes[index]["imagePath"]!),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
                 },
               ),
             ),
+            const SizedBox(height: 340), // Espaço para o novo widget
           ],
         ),
       ),
