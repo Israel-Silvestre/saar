@@ -15,7 +15,7 @@ class Municipio {
     final String nome = municipioData["municipio"]["nome"];
     final double latitude = municipioData["municipio"]["latitude"];
     final double longitude = municipioData["municipio"]["longitude"];
-    final List<bool> viabilidades = List.generate(36, (index) => municipioData["municipio"]["d${index + 1}"] == "S");
+    final List<bool> viabilidades = List.generate(36, (index) => municipioData["d${index + 1}"] == "S");
 
     return Municipio(nome: nome, latitude: latitude, longitude: longitude, viabilidades: viabilidades);
   }

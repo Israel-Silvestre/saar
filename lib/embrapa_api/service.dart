@@ -34,7 +34,7 @@ class EmbrapAPI {
   static Future<List<Municipio>> fetchMunicipiosRiscos(int ano, int idCultura, int idSolo, String porcentagem) async {
     final Response response = await http.get(Uri.parse(
         "https://meteorologia.emparn.rn.gov.br/api/riscos-agricolas/exibicao?"
-            "ano=$ano&idCultura=$idCultura&idSolo=$idSolo&porcentagem=${porcentagens[porcentagem]}"
+            "ano=$ano&idCultura=$idCultura&idSolo=$idSolo&porcentagem=PORCENTAGEM_40"
     ));
     final Map<String, dynamic> responseBody = _processResponse(response);
 

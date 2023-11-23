@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:saar/embrapa_api/models.dart';
+import 'package:saar/embrapa_api/service.dart';
 
 class Risco extends StatefulWidget {
   final Cultura cultura;
@@ -41,6 +42,16 @@ class _RiscoState extends State<Risco> {
     _horizontalScrollController.dispose();
     _verticalScrollController.dispose();
     super.dispose();
+  }
+
+  Future<List<List<bool>>> decendiosPorMes(int soloId) async {
+    List<Municipio> municipios = await EmbrapAPI.fetchMunicipiosRiscos(2023, _cultura.id, soloId, "PORCENTAGEM_40");
+    Municipio macaiba = municipios.firstWhere((municipio) => municipio.nome == "Macaíba");
+    List<List<bool>> decendiosPorMes = [];
+    for (int i = 0; i < macaiba.viabilidades.length; i += 3) {
+      decendiosPorMes.add(macaiba.viabilidades.sublist(i, i + 3 > macaiba.viabilidades.length ? macaiba.viabilidades.length : i + 3));
+    }
+    return decendiosPorMes;
   }
 
   void _scrollToSelectedCard(int index) {
@@ -119,7 +130,8 @@ class _RiscoState extends State<Risco> {
                                 } else {
                                   _selectedCardIndex = index;
                                   _scrollToSelectedCard(index);
-                                  _scrollVertically(); // Scroll vertical ao selecionar
+                                  _scrollVertically();
+                                  decendiosPorMes(solos[index].id);
                                 }
                               });
                             },
