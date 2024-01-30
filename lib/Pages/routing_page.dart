@@ -5,7 +5,7 @@ import '../embrapa_api/service.dart';
 import 'crop_page/culturas.dart';
 import 'crop_month/crop_month_page.dart';
 import 'settings_page/settings.dart';
-import 'home_page/home_page.dart';
+import 'home_page/page.dart';
 
 class PageRouting extends StatefulWidget {
   const PageRouting({super.key});
@@ -34,7 +34,7 @@ class _PageRoutingState extends State<PageRouting> {
     _solosFuture = EmbrapAPI.fetchSolos();
 
     _pages = [
-      const PlantsInfoPage(),
+      PlantsInfoPage(),
       MonthsList(culturasFuture: _culturasFuture),
       CultureWidget(culturasFuture: _culturasFuture, solosFuture: _solosFuture),
       SettingsFragment(),

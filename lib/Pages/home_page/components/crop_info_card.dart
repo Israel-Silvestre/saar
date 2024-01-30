@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PlantInfoCard extends StatelessWidget {
+class CropInfoCard extends StatelessWidget {
   final String imagePath;
   final String title;
   final String description;
 
-  const PlantInfoCard({
+  const CropInfoCard({
     super.key,
     required this.imagePath,
     required this.title,
