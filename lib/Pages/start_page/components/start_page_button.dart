@@ -10,16 +10,20 @@ class StartPageButton extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => targetWidget));
   }
 
-  @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(15)),
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-    child: TextButton(
-      onPressed: () {_goToTargetPage(context);},
-      child: Text(
-        buttonText,
-        style: const TextStyle(fontSize: 20, color: Colors.white)
-      ),
+  ButtonStyle _buttonStyle() => ButtonStyle(
+    fixedSize: MaterialStateProperty.all<Size>(const Size(153, 76)),
+    backgroundColor: MaterialStateProperty.all(const Color(0xFF80CC28)),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
     ),
+  );
+
+  TextStyle _textStyle() => const TextStyle(fontSize: 20, color: Color.fromARGB(255, 248, 248, 248));
+
+  @override
+  Widget build(BuildContext context) => TextButton(
+    onPressed: () {_goToTargetPage(context);},
+    style: _buttonStyle(),
+    child: Text(buttonText, style: _textStyle(),),
   );
 }
