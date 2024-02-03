@@ -49,7 +49,7 @@ class EmbrapAPI {
   /// Esta função envia uma solicitação GET para a URL [culturasUri] e espera
   /// receber uma resposta contendo informações sobre as culturas disponíveis.
   ///
-  /// Retorna uma lista de objetos [Cultura] representando as culturas disponíveis.
+  /// Retorna uma lista de objetos [Crop] representando as culturas disponíveis.
   /// Se a solicitação falhar ou o servidor retornar um código de status diferente
   /// de 200 (OK), uma exceção será lançada.
   ///
@@ -63,12 +63,12 @@ class EmbrapAPI {
   ///
   /// [culturasUri]: A URL para a API que fornece informações sobre culturas.
   /// [Cultura]: Classe que representa uma cultura disponível.
-  static Future<List<Cultura>> fetchCulturas() async {
+  static Future<List<Crop>> fetchCulturas() async {
     final Response response = await http.get(Uri.parse(culturasUri));
     final Map<String, dynamic> responseBody = _processResponse(response);
 
     final List<dynamic> culturas = responseBody["_embedded"]["culturas"];
-    final List<Cultura> listaDeCulturas = culturas.map((cultura) => Cultura.fromJson(cultura)).toList();
+    final List<Crop> listaDeCulturas = culturas.map((cultura) => Crop.fromJson(cultura)).toList();
 
     return listaDeCulturas;
   }
@@ -78,7 +78,7 @@ class EmbrapAPI {
   /// Esta função envia uma solicitação GET para a URL [soloUri] e espera receber
   /// uma resposta contendo informações sobre os tipos de solo disponíveis.
   ///
-  /// Retorna uma lista de objetos [Solo] representando os tipos de solo disponíveis.
+  /// Retorna uma lista de objetos [Soil] representando os tipos de solo disponíveis.
   /// Se a solicitação falhar ou o servidor retornar um código de status diferente
   /// de 200 (OK), uma exceção será lançada com a mensagem 'Falha ao carregar dados do servidor'.
   ///
@@ -91,12 +91,12 @@ class EmbrapAPI {
   /// ```
   ///
   /// [soloUri]: A URL para a API que fornece informações sobre tipos de solo disponíveis.
-  static Future<List<Solo>> fetchSolos() async {
+  static Future<List<Soil>> fetchSolos() async {
     final Response response = await http.get(Uri.parse(soloUri));
     final Map<String, dynamic> responseBody = _processResponse(response);
 
     final List<dynamic> solos = responseBody["_embedded"]["solo"];
-    final List<Solo> listaDeSolos = solos.map((solo) => Solo.fromJson(solo)).toList();
+    final List<Soil> listaDeSolos = solos.map((solo) => Soil.fromJson(solo)).toList();
 
     return listaDeSolos;
   }
