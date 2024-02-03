@@ -21,7 +21,7 @@ class Municipio {
   }
 }
 
-class Cultura {
+class Crop {
   final int id;
   final String nome;
   final String imagePath;
@@ -74,15 +74,15 @@ class Cultura {
     },
   };
 
-  const Cultura({
+  const Crop({
     required this.id,
     required this.nome,
     required this.imagePath,
     required this.type,
   });
 
-  factory Cultura.fromJson(Map<String, dynamic> culturaData) {
-    return Cultura(
+  factory Crop.fromJson(Map<String, dynamic> culturaData) {
+    return Crop(
         id: culturaData["id"],
         nome: culturaData["nome"],
         imagePath: categorias[culturaData["id"]]["imagePath"],
@@ -90,8 +90,8 @@ class Cultura {
     );
   }
 
-  factory Cultura.fromJsonStorage(Map<String, dynamic> culturaData) {
-    return Cultura(
+  factory Crop.fromJsonStorage(Map<String, dynamic> culturaData) {
+    return Crop(
         id: culturaData["id"],
         nome: culturaData["nome"],
         imagePath: culturaData["imagePath"],
@@ -109,7 +109,7 @@ class Cultura {
   }
 }
 
-class Solo {
+class Soil {
   final int id;
   final String nome;
   final String title;
@@ -122,7 +122,7 @@ class Solo {
     3: {"title": "Solo Tipo 3", "subtitle": "Argiloso", "imagePath": "assets/Solos/SoloTipo3.png"},
   };
 
-  const Solo({
+  const Soil({
     required this.id,
     required this.nome,
     required this.title,
@@ -130,10 +130,10 @@ class Solo {
     required this.imagePath,
   });
 
-  factory Solo.fromJson(Map<String, dynamic> soloData) {
+  factory Soil.fromJson(Map<String, dynamic> soloData) {
     final int id = soloData["id"];
 
-    return Solo(
+    return Soil(
       id: id,
       nome: soloData["nome"],
       title: soloInfo[id]["title"],
