@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:saar/app_context.dart';
 import 'package:saar/embrapa_api/models.dart';
 
 class MonthsList extends StatefulWidget {
-  final Future<List<Cultura>> culturasFuture;
 
-  MonthsList({required this.culturasFuture});
+  const MonthsList({super.key});
 
   @override
   _MonthsListState createState() => _MonthsListState();
@@ -15,11 +16,13 @@ class _MonthsListState extends State<MonthsList> {
 
   @override
   Widget build(BuildContext context) {
+    final culturasFuture = Provider.of<AppContextData>(context).contextCrops;
+
     return Scaffold(
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: Colors.grey[200],
               boxShadow: [
@@ -27,42 +30,31 @@ class _MonthsListState extends State<MonthsList> {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  _selectedMonth,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
+                Text(_selectedMonth, style: const TextStyle(color: Colors.black, fontSize: 18,)),
                 IconButton(
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    _showMonthYearPicker(context);
-                  },
+                  icon: const Icon(Icons.calendar_today, color: Colors.black),
+                  onPressed: () {_showMonthYearPicker(context);},
                 ),
               ],
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<Cultura>>(
-              future: widget.culturasFuture,
+            child: FutureBuilder<List<Crop>>(
+              future: culturasFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Erro ao carregar as culturas.'));
+                  return const Center(child: Text('Erro ao carregar as culturas.'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('Nenhuma cultura disponível.'));
+                  return const Center(child: Text('Nenhuma cultura disponível.'));
                 } else {
                   final culturas = snapshot.data!;
                   return ListView(
@@ -87,57 +79,36 @@ class _MonthsListState extends State<MonthsList> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Selecione o Mês e o Ano'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Adicione widgets para selecionar o mês e o ano aqui
-            ],
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Confirmar'),
-            ),
-          ],
+          title: const Text('Selecione o Mês e o Ano'),
+          content: const Column(mainAxisSize: MainAxisSize.min, children: [],),
+          actions: [ElevatedButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Confirmar')),],
         );
       },
     );
   }
 
-  Widget _buildCarouselWithTitle(String title, List<Cultura> culturas) {
+  Widget _buildCarouselWithTitle(String title, List<Crop> culturas) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
-        Container(
+        SizedBox(
           height: 150.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: culturas.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 120.0,
                   width: 140.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage(culturas[index].imagePath),
-                      fit: BoxFit.cover,
-                    ),
+                    image: DecorationImage(image: AssetImage(culturas[index].imagePath), fit: BoxFit.cover),
                   ),
                 ),
               );

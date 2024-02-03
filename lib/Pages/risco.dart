@@ -5,8 +5,8 @@ import 'package:saar/embrapa_api/models.dart';
 import 'package:saar/embrapa_api/service.dart';
 
 class Risco extends StatefulWidget {
-  final Cultura cultura;
-  final Future<List<Solo>> solosFuture;
+  final Crop cultura;
+  final Future<List<Soil>> solosFuture;
 
   const Risco({super.key, required this.cultura, required this.solosFuture});
 
@@ -15,12 +15,12 @@ class Risco extends StatefulWidget {
 }
 
 class _RiscoState extends State<Risco> {
-  late Cultura _cultura;
+  late Crop _cultura;
   late List<Map<String, String>> _cardAttributes;
   late int _selectedCardIndex; // Índice do card selecionado
   late ScrollController _horizontalScrollController;
   late ScrollController _verticalScrollController;
-  late Future<List<Solo>> _solosFuture;
+  late Future<List<Soil>> _solosFuture;
 
   @override
   void initState() {
@@ -105,7 +105,7 @@ class _RiscoState extends State<Risco> {
             ),
             SizedBox(
               height: 200,
-              child: FutureBuilder<List<Solo>>(
+              child: FutureBuilder<List<Soil>>(
                 future: _solosFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {

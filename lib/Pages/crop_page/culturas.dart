@@ -1,62 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:saar/app_context.dart';
 import 'package:saar/embrapa_api/models.dart';
 import 'package:saar/Pages/risco.dart';
 
 class CultureWidget extends StatefulWidget {
-  final Future<List<Cultura>> culturasFuture;
-  final Future<List<Solo>> solosFuture;
 
-  const CultureWidget({super.key, required this.culturasFuture, required this.solosFuture});
+  const CultureWidget({Key? key}) : super(key: key);
 
   @override
   _CultureWidgetState createState() => _CultureWidgetState();
 }
 
 class _CultureWidgetState extends State<CultureWidget> {
-  late Future<List<Cultura>> _culturasFuture;
-  late Future<List<Solo>> _solosFuture;
 
   @override
   void initState() {
     super.initState();
-    _culturasFuture = widget.culturasFuture;
-    _solosFuture = widget.solosFuture;
-
   }
 
   @override
   Widget build(BuildContext context) {
+    var crops = Provider.of<AppContextData>(context).contextCrops;
+    var soils = Provider.of<AppContextData>(context).contextSoils;
+
     return Scaffold(
-      body: FutureBuilder<List<Cultura>>(
-        future: _culturasFuture,
+      body: FutureBuilder<List<Crop>>(
+        future: crops,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
             return Text('Erro: ${snapshot.error}');
           } else {
-            final List<Cultura> cultureItems = snapshot.data ?? [];
-            return ListView.builder(
-              itemCount: cultureItems.length,
-              itemBuilder: (context, index) {
-                final culture = cultureItems[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Risco(cultura: culture, solosFuture: _solosFuture),
-                      ),
-                    );
-                  },
-                  child: CultureItemWidget(
-                    imagePath: culture.imagePath,
-                    name: culture.nome,
-                    description: culture.type,
-                  ),
-                );
-              },
-            );
+            return CropListBuilder(crops: snapshot.data ?? [], soils: soils);
           }
         },
       ),
@@ -64,12 +41,45 @@ class _CultureWidgetState extends State<CultureWidget> {
   }
 }
 
-class CultureItemWidget extends StatelessWidget {
+class CropListBuilder extends StatelessWidget {
+  final List<Crop> crops;
+  final Future<List<Soil>> soils;
+
+  const CropListBuilder({
+    Key? key,
+    required this.crops,
+    required this.soils
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: crops.length,
+      itemBuilder: (context, index) {
+        final cultura = crops[index];
+        return GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Risco(cultura: cultura, solosFuture: soils)),
+          ),
+          child: CropCardWidget(
+            imagePath: cultura.imagePath,
+            name: cultura.nome,
+            description: cultura.type,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class CropCardWidget extends StatelessWidget {
   final String imagePath;
   final String name;
   final String description;
 
-  CultureItemWidget({
+  const CropCardWidget({
+    super.key,
     required this.imagePath,
     required this.name,
     required this.description,
@@ -79,9 +89,7 @@ class CultureItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       margin: const EdgeInsets.all(4),
       child: Row(
         children: [
@@ -93,7 +101,7 @@ class CultureItemWidget extends StatelessWidget {
                 image: AssetImage(imagePath),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
@@ -107,14 +115,14 @@ class CultureItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     description,
-                    style: TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ],
               ),

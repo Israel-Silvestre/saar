@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../embrapa_api/models.dart';
-import '../embrapa_api/service.dart';
-import 'crop_page/culturas.dart';
 import 'crop_month/crop_month_page.dart';
-import 'settings_page/settings.dart';
+import 'crop_page/culturas.dart';
 import 'home_page/page.dart';
+import 'settings_page/settings.dart';
 
 class PageRouting extends StatefulWidget {
   const PageRouting({super.key});
@@ -16,29 +14,10 @@ class PageRouting extends StatefulWidget {
 
 class _PageRoutingState extends State<PageRouting> {
   int _selectedPageIndex = 0;
-  List<Widget> _pages = [];
-
-  late Future<List<Cultura>> _culturasFuture;
-  late Future<List<dynamic>> _anosDisponiveisFuture;
-  late Future<List<Solo>> _solosFuture;
+  final List<Widget> _pages = [const PlantsInfoPage(), const MonthsList(), const CultureWidget(), SettingsFragment()];
 
   void _onItemTapped(int index) {
     setState(() {_selectedPageIndex = index;});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _culturasFuture = EmbrapAPI.fetchCulturas();
-    _anosDisponiveisFuture = EmbrapAPI.fetchAnosDisponiveis();
-    _solosFuture = EmbrapAPI.fetchSolos();
-
-    _pages = [
-      PlantsInfoPage(),
-      MonthsList(culturasFuture: _culturasFuture),
-      CultureWidget(culturasFuture: _culturasFuture, solosFuture: _solosFuture),
-      SettingsFragment(),
-    ];
   }
 
   @override
@@ -56,10 +35,10 @@ class _PageRoutingState extends State<PageRouting> {
           onTap: _onItemTapped,
           currentIndex: _selectedPageIndex,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.white), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.calendar_today, color: Colors.white), label: 'Calendário'),
-            BottomNavigationBarItem(icon: Icon(Icons.local_florist, color: Colors.white), label: 'Cultura'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings, color: Colors.white), label: 'Configurações',),
+            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home, color: Colors.white)),
+            BottomNavigationBarItem(label: 'Calendário', icon: Icon(Icons.calendar_today, color: Colors.white) ),
+            BottomNavigationBarItem(label: 'Cultura', icon: Icon(Icons.local_florist, color: Colors.white)),
+            BottomNavigationBarItem(label: 'Configurações', icon: Icon(Icons.settings, color: Colors.white)),
           ],
           selectedItemColor: Colors.white,
         ),
