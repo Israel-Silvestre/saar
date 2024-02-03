@@ -17,7 +17,7 @@ class Risco extends StatefulWidget {
 class _RiscoState extends State<Risco> {
   late Crop _cultura;
   late List<Map<String, String>> _cardAttributes;
-  late int _selectedCardIndex; // Índice do card selecionado
+  late int _selectedCardIndex;
   late ScrollController _horizontalScrollController;
   late ScrollController _verticalScrollController;
   late Future<List<Soil>> _solosFuture;

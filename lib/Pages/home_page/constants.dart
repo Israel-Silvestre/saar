@@ -1,4 +1,4 @@
-import 'package:saar/Pages/home_page/models.dart';
+import 'models.dart';
 
 final List<CropInfo> cropsInfo = [
   const CropInfo(
