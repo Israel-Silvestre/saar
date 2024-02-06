@@ -1,14 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:saar/app_context.dart';
 import 'package:saar/embrapa_api/models.dart';
 import 'package:saar/embrapa_api/service.dart';
 
 class Risco extends StatefulWidget {
   final Crop cultura;
-  final Future<List<Soil>> solosFuture;
 
-  const Risco({super.key, required this.cultura, required this.solosFuture});
+  const Risco({super.key, required this.cultura});
 
   @override
   _RiscoState createState() => _RiscoState();
@@ -20,13 +19,11 @@ class _RiscoState extends State<Risco> {
   late int _selectedCardIndex;
   late ScrollController _horizontalScrollController;
   late ScrollController _verticalScrollController;
-  late Future<List<Soil>> _solosFuture;
 
   @override
   void initState() {
     super.initState();
     _cultura = widget.cultura;
-    _solosFuture = widget.solosFuture;
     _cardAttributes = [
       {"title": "Solo Tipo 1", "subtitle": "Arenoso", "imagePath": "assets/Solos/SoloTipo1.png"},
       {"title": "Solo Tipo 2", "subtitle": "Arenoargiloso", "imagePath": "assets/Solos/SoloTipo2.png"},
@@ -71,6 +68,7 @@ class _RiscoState extends State<Risco> {
 
   @override
   Widget build(BuildContext context) {
+    var solosFuture = Provider.of<AppContextData>(context).contextSoils;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -106,10 +104,10 @@ class _RiscoState extends State<Risco> {
             SizedBox(
               height: 200,
               child: FutureBuilder<List<Soil>>(
-                future: _solosFuture,
+                future: solosFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator(); // Exibir um indicador de carregamento enquanto os dados estão sendo carregados.
+                    return const CircularProgressIndicator(); // Exibir um indicador de carregamento enquanto os dados estão sendo carregados.
                   } else if (snapshot.hasError) {
                     return Text('Erro: ${snapshot.error}');
                   } else {

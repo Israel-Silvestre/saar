@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'crop_month/crop_month_page.dart';
-import 'crop_page/culturas.dart';
+import 'crop_page/page.dart';
 import 'home_page/page.dart';
 import 'settings_page/settings.dart';
 
