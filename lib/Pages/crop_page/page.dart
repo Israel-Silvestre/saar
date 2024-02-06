@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'components/crop_card.dart';
+
 import '../../app_context.dart';
 import '../../embrapa_api/models.dart';
 import '../risco.dart';
+import 'components/crop_card.dart';
 
 class CultureWidget extends StatelessWidget {
   const CultureWidget({Key? key}) : super(key: key);
@@ -40,15 +41,12 @@ class CropListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.builder(
     itemCount: crops.length,
-    itemBuilder: (context, index) {
-      final cultura = crops[index];
-      return GestureDetector(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Risco(cultura: cultura)))
-        ,
-        child: CropCard(imagePath: cultura.imagePath, name: cultura.nome, description: cultura.type),
-      );
-    },
+    itemBuilder: (context, index) => GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Risco(cultura: crops[index])))
+      ,
+      child: CropCard(imagePath: crops[index].imagePath, name: crops[index].nome, description: crops[index].type),
+    )
   );
 }
