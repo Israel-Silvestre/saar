@@ -14,6 +14,7 @@ class CropTextInfo extends StatelessWidget {
     fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Roboto',
+    overflow: TextOverflow.ellipsis
   );
 
   @override
@@ -24,7 +25,7 @@ class CropTextInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(title, style: headerStyle()),
-        Text(description, style: const TextStyle(fontFamily: 'Roboto')),
+        Text(description, style: const TextStyle(fontFamily: 'Roboto', overflow: TextOverflow.ellipsis)),
       ],
     ),
   );

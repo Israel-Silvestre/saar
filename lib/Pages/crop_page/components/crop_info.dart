@@ -17,8 +17,8 @@ class CropTextInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-        Text(description),
+        Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17, overflow: TextOverflow.ellipsis)),
+        Text(description, style: const TextStyle(overflow: TextOverflow.ellipsis)),
       ],
     ),
   );

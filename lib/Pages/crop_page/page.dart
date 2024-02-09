@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../app_context.dart';
 import '../../embrapa_api/models.dart';
-import '../risco.dart';
+import '../crop_risk/page.dart';
 import 'components/crop_card.dart';
 
 class CultureWidget extends StatelessWidget {
@@ -18,10 +18,7 @@ class CultureWidget extends StatelessWidget {
       } else if (cropSnapshot.hasError) {
         return Text('Erro: ${cropSnapshot.error}');
       } else {
-        return CropListBuilder(
-          crops: cropSnapshot.data ?? [],
-          soils: Provider.of<AppContextData>(context).contextSoils,
-        );
+        return CropListBuilder(crops: cropSnapshot.data ?? []);
       }
     },
   );
@@ -30,12 +27,10 @@ class CultureWidget extends StatelessWidget {
 
 class CropListBuilder extends StatelessWidget {
   final List<Crop> crops;
-  final Future<List<Soil>> soils;
 
   const CropListBuilder({
     Key? key,
     required this.crops,
-    required this.soils
   }) : super(key: key);
 
   @override
@@ -44,7 +39,7 @@ class CropListBuilder extends StatelessWidget {
     itemBuilder: (context, index) => GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Risco(cultura: crops[index])))
+        MaterialPageRoute(builder: (context) => CropRisk(crop: crops[index])))
       ,
       child: CropCard(imagePath: crops[index].imagePath, name: crops[index].nome, description: crops[index].type),
     )
