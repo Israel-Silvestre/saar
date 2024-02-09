@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saar/app_context.dart';
-import 'package:saar/embrapa_api/models.dart';
+
+import '../../app_context.dart';
+import '../../embrapa_api/models.dart';
 
 class MonthsList extends StatefulWidget {
 
