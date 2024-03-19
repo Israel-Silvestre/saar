@@ -14,6 +14,10 @@ class MonthsList extends StatefulWidget {
 
 class _MonthsListState extends State<MonthsList> {
   String _selectedMonth = 'Janeiro';
+  List<String> _months = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +42,24 @@ class _MonthsListState extends State<MonthsList> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(_selectedMonth, style: const TextStyle(color: Colors.black, fontSize: 18,)),
-                IconButton(
-                  icon: const Icon(Icons.calendar_today, color: Colors.black),
-                  onPressed: () {_showMonthYearPicker(context);},
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedMonth,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selectedMonth = newValue!;
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      border: InputBorder.none, // Remover a linha de sublinhado
+                    ),
+                    items: _months.map((month) {
+                      return DropdownMenuItem<String>(
+                        value: month,
+                        child: Text(month),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ],
             ),
@@ -72,19 +90,6 @@ class _MonthsListState extends State<MonthsList> {
           ),
         ],
       ),
-    );
-  }
-
-  void _showMonthYearPicker(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Selecione o Mês e o Ano'),
-          content: const Column(mainAxisSize: MainAxisSize.min, children: [],),
-          actions: [ElevatedButton(onPressed: () {Navigator.of(context).pop();}, child: const Text('Confirmar')),],
-        );
-      },
     );
   }
 
