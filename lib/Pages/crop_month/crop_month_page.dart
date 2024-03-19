@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../../app_context.dart';
 import '../../embrapa_api/models.dart';
+import '../crop_risk/page.dart';
 
 class MonthsList extends StatefulWidget {
-
-  const MonthsList({super.key});
+  const MonthsList({Key? key}) : super(key: key);
 
   @override
   _MonthsListState createState() => _MonthsListState();
@@ -102,14 +102,24 @@ class _MonthsListState extends State<MonthsList> {
             scrollDirection: Axis.horizontal,
             itemCount: culturas.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 120.0,
-                  width: 140.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(image: AssetImage(culturas[index].imagePath), fit: BoxFit.cover),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CropRisk(crop: culturas[index]),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 120.0,
+                    width: 140.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      image: DecorationImage(image: AssetImage(culturas[index].imagePath), fit: BoxFit.cover),
+                    ),
                   ),
                 ),
               );
