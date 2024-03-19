@@ -3,8 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
-import 'models.dart';
+import 'package:saar/embrapa_api/models.dart';
 
 class EmbrapAPI {
 
@@ -35,7 +34,7 @@ class EmbrapAPI {
   static Future<List<Municipio>> fetchMunicipiosRiscos(int ano, int idCultura, int idSolo, String porcentagem) async {
     final Response response = await http.get(Uri.parse(
         "https://meteorologia.emparn.rn.gov.br/api/riscos-agricolas/exibicao?"
-            "ano=$ano&idCultura=$idCultura&idSolo=$idSolo&porcentagem=PORCENTAGEM_40"
+            "ano=$ano&idCultura=$idCultura&idSolo=$idSolo&porcentagem=${porcentagens[porcentagem]}"
     ));
     final Map<String, dynamic> responseBody = _processResponse(response);
 
@@ -50,7 +49,7 @@ class EmbrapAPI {
   /// Esta função envia uma solicitação GET para a URL [culturasUri] e espera
   /// receber uma resposta contendo informações sobre as culturas disponíveis.
   ///
-  /// Retorna uma lista de objetos [Crop] representando as culturas disponíveis.
+  /// Retorna uma lista de objetos [Cultura] representando as culturas disponíveis.
   /// Se a solicitação falhar ou o servidor retornar um código de status diferente
   /// de 200 (OK), uma exceção será lançada.
   ///
@@ -79,7 +78,7 @@ class EmbrapAPI {
   /// Esta função envia uma solicitação GET para a URL [soloUri] e espera receber
   /// uma resposta contendo informações sobre os tipos de solo disponíveis.
   ///
-  /// Retorna uma lista de objetos [Soil] representando os tipos de solo disponíveis.
+  /// Retorna uma lista de objetos [Solo] representando os tipos de solo disponíveis.
   /// Se a solicitação falhar ou o servidor retornar um código de status diferente
   /// de 200 (OK), uma exceção será lançada com a mensagem 'Falha ao carregar dados do servidor'.
   ///
