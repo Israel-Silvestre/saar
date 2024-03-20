@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'components/risk_result.dart';
-import '../../embrapa_api/service.dart';
 
 import '../../app_context.dart';
 import '../../embrapa_api/models.dart';
+import '../../embrapa_api/service.dart';
 import 'components/crop_risk_image.dart';
 import 'components/crop_risk_list.dart';
+import 'components/risk_result.dart';
 
 class CropRisk extends StatefulWidget {
   final Crop crop;
@@ -101,4 +101,3 @@ class CropRiskSoils extends StatelessWidget {
     ],
   );
 }
-
