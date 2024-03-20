@@ -2,7 +2,7 @@ class Municipio {
   final String nome;
   final double latitude;
   final double longitude;
-  final List<bool> viabilidades;
+  final List<List<bool>> viabilidades;
 
   const Municipio({
     required this.nome,
@@ -12,12 +12,23 @@ class Municipio {
   });
 
   factory Municipio.fromJson(Map<String, dynamic> municipioData) {
-    final String nome = municipioData["municipio"]["nome"];
-    final double latitude = municipioData["municipio"]["latitude"];
-    final double longitude = municipioData["municipio"]["longitude"];
     final List<bool> viabilidades = List.generate(36, (index) => municipioData["d${index + 1}"] == "S");
 
-    return Municipio(nome: nome, latitude: latitude, longitude: longitude, viabilidades: viabilidades);
+    final List<List<bool>> viabilidadesSplit = List.generate(
+      (viabilidades.length / 3).ceil(),
+      (index) {
+        final start = index * 3;
+        final end = start + 3;
+        return viabilidades.sublist(start, end);
+      }
+    );
+
+    return Municipio(
+      nome: municipioData["municipio"]["nome"],
+      latitude: municipioData["municipio"]["latitude"],
+      longitude: municipioData["municipio"]["longitude"],
+      viabilidades: viabilidadesSplit
+    );
   }
 }
 
