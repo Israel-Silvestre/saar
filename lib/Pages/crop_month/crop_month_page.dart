@@ -78,10 +78,10 @@ class _MonthsListState extends State<MonthsList> {
                   final culturas = snapshot.data!;
                   return ListView(
                     children: [
-                      _buildCarouselWithTitle('Frutas', culturas.where((cultura) => cultura.type == 'Fruta').toList()),
-                      _buildCarouselWithTitle('Verduras', culturas.where((cultura) => cultura.type == 'Verdura').toList()),
-                      _buildCarouselWithTitle('Leguminosas', culturas.where((cultura) => cultura.type == 'Leguminosa').toList()),
-                      _buildCarouselWithTitle('Raízes', culturas.where((cultura) => cultura.type == 'Raíz').toList()),
+                      _buildCarouselWithTitle('Grãos', culturas.where((cultura) => cultura.type == 'Grãos').toList()),
+                      _buildCarouselWithTitle('Hortaliças', culturas.where((cultura) => cultura.type == 'Hortaliças').toList()),
+                      _buildCarouselWithTitle('Leguminosas', culturas.where((cultura) => cultura.type == 'Leguminosas').toList()),
+                      _buildCarouselWithTitle('Raízes', culturas.where((cultura) => cultura.type == 'Raízes').toList()),
                     ],
                   );
                 }

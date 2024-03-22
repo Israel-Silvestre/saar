@@ -41,47 +41,47 @@ class Crop {
   static const Map<int, dynamic> categorias = {
     2: {
       "imagePath": "assets/Culturas/girassol.png",
-      "categoria": "Fruta",
+      "categoria": "Grãos",
     },
     3: {
       "imagePath": "assets/Culturas/algodao.png",
-      "categoria": "Raíz",
+      "categoria": "Grãos",
     },
     4: {
       "imagePath": "assets/Culturas/milhoS.png",
-      "categoria": "Verdura"
+      "categoria": "Grãos"
     },
     5: {
       "imagePath":  "assets/Culturas/feijaoV.png",
-      "categoria": "Verdura",
+      "categoria": "Leguminosas",
     },
     6: {
       "imagePath": "assets/Culturas/feijaoS.png",
-      "categoria": "Leguminosa",
+      "categoria": "Leguminosas",
     },
     7: {
       "imagePath": "assets/Culturas/milhoV.png",
-      "categoria": "Verdura",
+      "categoria": "Grãos",
     },
     8: {
       "imagePath": "assets/Culturas/sorgo.png",
-      "categoria": "Verdura",
+      "categoria": "Grãos",
     },
     9: {
       "imagePath": "assets/Culturas/batataDoce.png",
-      "categoria": "Raíz",
+      "categoria": "Raízes",
     },
     10: {
       "imagePath": "assets/Culturas/mandioca.png",
-      "categoria": "Raíz",
+      "categoria": "Raízes",
     },
     11: {
       "imagePath": "assets/Culturas/gergelim.png",
-      "categoria": "Leguminosa",
+      "categoria": "Grãos",
     },
     12: {
       "imagePath": "assets/Culturas/cebola.png",
-      "categoria": "Verdura",
+      "categoria": "Hortaliças",
     },
   };
 
